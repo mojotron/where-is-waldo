@@ -4,15 +4,26 @@ import Error from "./pages/Error";
 import Layout from "./pages/Layout";
 import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import { useState } from "react";
 
 const App = () => {
+  const [admin, setAdmin] = useState(false);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="admin" element={<Admin />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="admin" element={<Admin setAdmin={setAdmin} />} />
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute user={admin}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

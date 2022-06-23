@@ -21,3 +21,6 @@
 .Login > button {
   margin-top: 1rem;
 }
+.Login__error {
+  color: rgb(255, 123, 0);
+}
