@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 const firbaseApp = initializeApp({
   apiKey: "AIzaSyBoLWK2atewjcfFsNlaLRzJ9TiDMeb-fZY",
@@ -13,27 +15,26 @@ const firbaseApp = initializeApp({
 
 const auth = getAuth(firbaseApp);
 const db = getFirestore(firbaseApp);
+const storage = getStorage(firbaseApp);
 
 export const logInAdmin = async (userObj) => {
   try {
-    console.log("2", userObj);
-    const credUser = await signInWithEmailAndPassword(
-      auth,
-      userObj.email,
-      userObj.password
-    );
-    console.log("3", credUser.user);
+    await signInWithEmailAndPassword(auth, userObj.email, userObj.password);
     const adminCol = collection(db, "admin");
     const admins = await getDocs(adminCol);
-    console.log("4");
     const admin = admins.docs.some(
       (doc) => doc.data().username === userObj.username
     );
     if (admin === false) throw new Error("unknown admin");
     return admin; // returns true for useState in App component for rendering a dashboard
   } catch (error) {
-    console.log(error.message);
     signOut(auth);
     throw error;
   }
+};
+
+export const uploadImageToStorage = async (imgObj) => {
+  console.log(imgObj);
+  const imgRef = ref(storage, `gameImages/${v4() + "-" + imgObj.name}`);
+  uploadBytes(imgRef, imgObj);
 };
