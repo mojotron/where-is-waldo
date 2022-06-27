@@ -5,38 +5,37 @@ const CharactersPopup = ({ top, left }) => {
   return (
     <div
       style={{
-        height: "30px",
-        width: "30px",
+        minHeight: "30px",
+        minWidth: "100px",
         backgroundColor: "blue",
         position: "absolute",
-        top: `${top}px`,
-        left: `${left}px`,
+        top: `${top}%`,
+        left: `${left}%`,
       }}
     ></div>
   );
 };
 
-const Square = ({ index, handleClick }) => {
-  return (
-    <div className="Square" data-index={index} onClick={handleClick}></div>
-  );
-};
-
 const ImageBoard = () => {
-  const [x, setX] = useState(null);
+  const [popUpCoords, setPopUpCoords] = useState(null);
 
   const handleClick = (e) => {
-    console.log(e.target.dataset.index);
     const rect = e.target.getBoundingClientRect();
-    setX({ top: rect.top, left: rect.left });
+    const leftPosition = e.clientX + 100 > rect.width;
+    console.log(leftPosition);
+    setPopUpCoords({
+      top: ((e.clientY - rect.top) / rect.height) * 100,
+      left: leftPosition
+        ? ((e.clientX - 100) / rect.width) * 100
+        : (e.clientX / rect.width) * 100,
+    });
   };
 
   return (
-    <div className="ImageBoard">
-      {Array.from({ length: 220 }, (_, i) => (
-        <Square key={i} index={i} handleClick={handleClick} />
-      ))}
-      {x && <CharactersPopup top={x.top} left={x.left} />}
+    <div className="ImageBoard" onMouseDown={handleClick}>
+      {popUpCoords && (
+        <CharactersPopup top={popUpCoords.top} left={popUpCoords.left} />
+      )}
     </div>
   );
 };
