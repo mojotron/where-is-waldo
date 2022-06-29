@@ -2,7 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
 
 const firbaseApp = initializeApp({
   apiKey: "AIzaSyBoLWK2atewjcfFsNlaLRzJ9TiDMeb-fZY",
@@ -33,8 +32,7 @@ export const logInAdmin = async (userObj) => {
   }
 };
 
-export const uploadImageToStorage = async (imgObj) => {
-  console.log(imgObj);
-  const imgRef = ref(storage, `gameImages/${v4() + "-" + imgObj.name}`);
+export const uploadImageToStorage = async (directory, imgObj) => {
+  const imgRef = ref(storage, `${directory}/${imgObj.name}`);
   uploadBytes(imgRef, imgObj);
 };

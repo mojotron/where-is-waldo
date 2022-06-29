@@ -1,37 +1,61 @@
 import { useState, useEffect } from "react";
 import { uploadImageToStorage } from "../firebaseApp";
 import "../styles/Dashboard.css";
-import uploadImgIcon from "../images/image-svgrepo-com.svg";
 
 const Dashboard = () => {
-  const [uploadImage, setUploadImage] = useState(null);
-  const [imageList, setImagesLit] = useState([]);
+  const [uploadImageData, setUploadImageData] = useState({
+    directory: "",
+    file: null,
+  });
 
-  const handleUploadImage = () => {
-    if (uploadImage === null) return;
-    uploadImageToStorage(uploadImage);
+  const handleChange = (event) => {
+    const { name, value, type, files } = event.target;
+    setUploadImageData((state) => {
+      return { ...state, [name]: type === "file" ? files[0] : value };
+    });
   };
 
-  useEffect(() => {}, []);
+  const handleUploadImage = (event) => {
+    event.preventDefault();
+    if (setUploadImageData.file === null) return;
+
+    uploadImageToStorage(uploadImageData.directory, uploadImageData.file);
+  };
 
   return (
     <div>
       <h1>Dashboard</h1>
       <div className="">
         <h2>Add new image</h2>
-        <label className="input-type-file" htmlFor="upload-image">
-          {uploadImage ? uploadImage : "Select Image"}
-          <img src={uploadImgIcon} className="icon" />
+
+        <form onSubmit={handleUploadImage}>
+          <label htmlFor="storage-directory">select server directory</label>
+
+          <select
+            id="storage-directory"
+            name="directory"
+            value={uploadImageData.directory}
+            onChange={handleChange}
+          >
+            <option value="">--choose--</option>
+            <option value="characterIcons">characters</option>
+            <option value="gameImages">game images</option>
+            <option value="levelSmallImages">level small</option>
+          </select>
+
+          <label htmlFor="storage-image">select image</label>
           <input
-            id="upload-image"
+            id="storage-image"
             type="file"
             accept="image/png image/jpg"
-            onChange={(e) => setUploadImage(e.target.files[0])}
+            name="file"
+            onChange={handleChange}
           />
-        </label>
-        <button className="btn" type="button" onClick={handleUploadImage}>
-          upload image
-        </button>
+
+          <button className="btn" type="submit">
+            upload image
+          </button>
+        </form>
       </div>
     </div>
   );
