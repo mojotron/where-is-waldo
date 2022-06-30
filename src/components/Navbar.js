@@ -3,7 +3,7 @@ import "../styles/Navbar.css";
 
 const Navbar = () => {
   return (
-    <nav>
+    <nav className="Navbar">
       <NavLink to="/">Home</NavLink>
       <NavLink to="">Levels</NavLink>
       <NavLink to="">Leader boards</NavLink>
