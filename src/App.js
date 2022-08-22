@@ -1,35 +1,31 @@
-import { createContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Error from "./pages/Error";
-import Layout from "./pages/Layout";
-import Admin from "./pages/Admin";
-import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./pages/ProtectedRoute";
-
-const UserContext = createContext();
+// context
+import { useAuthContext } from "./hooks/useAuthContext";
+// pages
+import AdminLogin from "./pages/AdminLogin/AdminLogin";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
-  const [admin, setAdmin] = useState(false);
+  const { user } = useAuthContext();
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="admin" element={<Admin setAdmin={setAdmin} />} />
+    <div className="App">
+      <h2>Yo</h2>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/admin" element={<AdminLogin />} />
           <Route
-            path="dashboard"
+            path="/dashboard"
             element={
-              <ProtectedRoute user={admin}>
+              <ProtectedRoute goto="/admin" condition={user}>
                 <Dashboard />
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Error />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 
