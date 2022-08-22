@@ -1,16 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const { login, isPending, error } = useLogin();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((oldData) => ({ ...oldData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData.email, formData.password);
+    await login(formData.email, formData.password);
+    navigate("/dashboard");
   };
 
   return (
@@ -35,9 +40,17 @@ const AdminLogin = () => {
         onChange={handleChange}
       />
 
-      <button type="submit" className="btn">
-        Login
-      </button>
+      {isPending ? (
+        <button type="button" className="btn" disabled>
+          Loading
+        </button>
+      ) : (
+        <button type="submit" className="btn">
+          Login
+        </button>
+      )}
+
+      {error && <p className="error">{error}</p>}
     </form>
   );
 };
