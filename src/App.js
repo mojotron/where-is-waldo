@@ -11,7 +11,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2>Yo</h2>
       <BrowserRouter>
         <Routes>
           <Route path="/admin" element={<AdminLogin />} />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
+import "./AdminLogin.css";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -19,7 +20,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="Admin" onSubmit={handleSubmit}>
       <h2>Admin Dashboard Login</h2>
 
       <label htmlFor="email">Email</label>

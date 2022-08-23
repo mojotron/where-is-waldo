@@ -1,7 +1,9 @@
 import { useLogout } from "../../hooks/useLogout";
+import UploadImageForm from "../../components/UploadImageForm";
 
 const Dashboard = () => {
   const { isPending, error, logout } = useLogout();
+
   return (
     <div>
       <h1>Dashboard</h1>
@@ -15,6 +17,8 @@ const Dashboard = () => {
           Logout
         </button>
       )}
+
+      <UploadImageForm />
 
       {error && <p className="error">{error}</p>}
     </div>

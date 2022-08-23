@@ -20,12 +20,32 @@ html {
 body {
   height: 100vh;
   width: 100vw;
+  color: var(--red);
+}
+label,
+input {
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--red);
+}
+label {
+  font-size: 1.8rem;
+}
+input {
+  background: none;
+  border: none;
+  border: 2px solid var(--red);
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
 }
 #root {
   height: inherit;
   width: inherit;
 }
 .btn {
+  display: block;
+  width: 10rem;
   background: var(--red);
   border: 1px solid var(--red);
   border-radius: 6px;
