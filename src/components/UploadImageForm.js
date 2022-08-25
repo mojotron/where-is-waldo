@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useStorage } from "../hooks/useStorage";
 
-const UploadImageForm = () => {
+const UploadImageForm = ({ directory, closeOption }) => {
   const { uploadImage } = useStorage();
 
   const [title, setTitle] = useState("");
@@ -9,9 +9,10 @@ const UploadImageForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await uploadImage("levels", image);
+    await uploadImage(directory, image);
     setTitle("");
     setImage("");
+    closeOption();
   };
 
   return (

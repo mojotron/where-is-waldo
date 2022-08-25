@@ -1,24 +1,22 @@
 import { useLogout } from "../../hooks/useLogout";
-import UploadImageForm from "../../components/UploadImageForm";
+import Sidebar from "./Sidebar";
 
 const Dashboard = () => {
   const { isPending, error, logout } = useLogout();
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="Dashboard">
+      <Sidebar />
 
       {isPending ? (
-        <button className="btn" type="button" disabled>
+        <button className="btn btn--logout" type="button" disabled>
           Loading
         </button>
       ) : (
-        <button className="btn" type="button" onClick={logout}>
+        <button className="btn btn--logout" type="button" onClick={logout}>
           Logout
         </button>
       )}
-
-      <UploadImageForm />
 
       {error && <p className="error">{error}</p>}
     </div>
