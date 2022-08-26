@@ -15,5 +15,12 @@
 }
 .Dashboard__Sidebar section {
   display: flex;
+  align-items: flex-start;
   padding: 0.5rem 0;
+}
+.btn--sidebar {
+  width: 20rem;
+}
+.cell:hover {
+  border: 2px solid var(--red);
 }

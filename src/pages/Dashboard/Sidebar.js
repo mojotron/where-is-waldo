@@ -1,5 +1,6 @@
 import { useState } from "react";
-import UploadImageForm from "../../components/UploadImageForm";
+import UploadImageForm from "./UploadImageForm";
+import OverlayGrid from "../../components/OverlayGrid";
 import "./Dashboard.css";
 
 const Sidebar = () => {
@@ -24,7 +25,7 @@ const Sidebar = () => {
       <section>
         <button
           type="button"
-          className="btn"
+          className="btn btn--sidebar"
           onClick={() => handleDisplayOption("image")}
         >
           Add Level Image
@@ -40,7 +41,7 @@ const Sidebar = () => {
       <section>
         <button
           type="button"
-          className="btn"
+          className="btn btn--sidebar"
           onClick={() => handleDisplayOption("tag")}
         >
           Add Tag Image
@@ -56,12 +57,12 @@ const Sidebar = () => {
       <section>
         <button
           type="button"
-          className="btn"
+          className="btn btn--sidebar"
           onClick={() => handleDisplayOption("newLevel")}
         >
           Create New Level
         </button>
-        {showOptions.newLevel && <p>create level here</p>}
+        {showOptions.newLevel && <OverlayGrid />}
       </section>
     </div>
   );
