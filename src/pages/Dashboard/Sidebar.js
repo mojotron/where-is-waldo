@@ -2,8 +2,10 @@ import { useState } from "react";
 import UploadImageForm from "./UploadImageForm";
 import OverlayGrid from "../../components/OverlayGrid";
 import "./Dashboard.css";
+import { useStorage } from "../../hooks/useStorage";
 
 const Sidebar = () => {
+  const { loadImages, response } = useStorage();
   const [showOptions, setShowOptions] = useState({
     image: false,
     tag: false,
@@ -17,6 +19,11 @@ const Sidebar = () => {
       newLevel: false,
       [option]: !oldValue[option],
     }));
+  };
+
+  const handleLoadImages = async () => {
+    await loadImages("images");
+    console.log(response);
   };
 
   return (
@@ -64,6 +71,8 @@ const Sidebar = () => {
         </button>
         {showOptions.newLevel && <OverlayGrid />}
       </section>
+
+      <button onClick={handleLoadImages}>imgs</button>
     </div>
   );
 };
