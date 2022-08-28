@@ -42,11 +42,11 @@ export const useStorage = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [response, dispatch] = useReducer(storageReducer, initialState);
 
+  console.log(isCancelled);
+
   const dispatchIfNotCancelled = (action) => {
-    if (!isCancelled) {
-      console.log(2);
-      dispatch(action);
-    }
+    dispatch(action);
+    console.log(3);
   };
 
   const uploadImage = async (directory, file) => {
@@ -66,19 +66,13 @@ export const useStorage = () => {
     dispatch({ type: "IS_PENDING" });
 
     try {
-      const imageURLS = [];
-      listAll(ref(projectStorage, `${directory}/`))
-        .then((response) => {
-          response.items.forEach((item) => {
-            getDownloadURL(item).then((url) => {
-              imageURLS.push(url);
-            });
-          });
-        })
-        .then(() => {
-          console.log(1);
-          dispatchIfNotCancelled({ type: "LOAD_IMAGES", payload: imageURLS });
-        });
+      listAll(ref(projectStorage, `${directory}/`)).then((response) => {
+        return Promise.all(
+          response.items.map((imageRef) => getDownloadURL(imageRef))
+        ).then((urlsArr) =>
+          dispatchIfNotCancelled({ type: "LOAD_IMAGES", payload: urlsArr })
+        );
+      });
     } catch (error) {
       dispatchIfNotCancelled({ type: "ERROR", payload: error.message });
     }

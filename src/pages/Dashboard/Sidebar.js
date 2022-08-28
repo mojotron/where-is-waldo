@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { useStorage } from "../../hooks/useStorage";
 import UploadImageForm from "./UploadImageForm";
 import OverlayGrid from "../../components/OverlayGrid";
 import "./Dashboard.css";
-import { useStorage } from "../../hooks/useStorage";
 
 const Sidebar = () => {
   const { loadImages, response } = useStorage();
