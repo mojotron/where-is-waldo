@@ -5,4 +5,7 @@
   display: grid;
   grid-template-columns: repeat(25, 1fr);
   grid-template-rows: repeat(15, 1fr);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
 }

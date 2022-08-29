@@ -1,8 +1,8 @@
 import "./styles/OverlayGrid.css";
 
-const OverlayGrid = () => {
+const OverlayGrid = ({ image }) => {
   return (
-    <div className="OverlayGrid">
+    <div className="OverlayGrid" style={{ backgroundImage: `url("${image}")` }}>
       {Array.from({ length: 375 }).map((_, i) => (
         <div
           key={i}

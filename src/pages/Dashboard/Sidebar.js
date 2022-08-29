@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useStorage } from "../../hooks/useStorage";
 import UploadImageForm from "./UploadImageForm";
 import OverlayGrid from "../../components/OverlayGrid";
+import CreateTag from "./CreateTag";
 import "./Dashboard.css";
 
 const Sidebar = () => {
@@ -11,19 +12,19 @@ const Sidebar = () => {
     tag: false,
     newLevel: false,
   });
+  const [currentLevel, setCurrentLevel] = useState({
+    image: "",
+    tags: [],
+  });
 
-  const handleDisplayOption = (option) => {
+  const handleDisplayOption = async (option) => {
     setShowOptions((oldValue) => ({
       image: false,
       tag: false,
       newLevel: false,
       [option]: !oldValue[option],
     }));
-  };
-
-  const handleLoadImages = async () => {
-    await loadImages("images");
-    console.log(response);
+    if (option === "newLevel") await loadImages("images");
   };
 
   return (
@@ -69,10 +70,30 @@ const Sidebar = () => {
         >
           Create New Level
         </button>
-        {showOptions.newLevel && <OverlayGrid />}
+        {showOptions.newLevel && (
+          <div>
+            <ul className="Dashboard__Sidebar__levels">
+              {response.imageUrls &&
+                response.imageUrls.map((url) => (
+                  <img
+                    key={url}
+                    src={url}
+                    alt="level"
+                    className="Dashboard__Sidebar__thumbnail"
+                    onClick={() =>
+                      setCurrentLevel((oldValue) => ({
+                        ...oldValue,
+                        image: url,
+                      }))
+                    }
+                  />
+                ))}
+            </ul>
+            <OverlayGrid image={currentLevel.image} />
+            <CreateTag />
+          </div>
+        )}
       </section>
-
-      <button onClick={handleLoadImages}>imgs</button>
     </div>
   );
 };

@@ -24,3 +24,25 @@
 .cell:hover {
   border: 2px solid var(--red);
 }
+.Dashboard__Sidebar__levels {
+  border: 1px solid var(--red);
+  overflow: hidden;
+  overflow-x: scroll;
+}
+.Dashboard__Sidebar__thumbnail {
+  height: 8rem;
+  cursor: pointer;
+}
+.Dashboard__Sidebar__thumbnail:hover {
+  opacity: 0.6;
+}
+.CreateTag {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 30rem;
+}
+.CreateTag h2 {
+  font-size: 2rem;
+  padding-bottom: 2rem;
+}

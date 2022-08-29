@@ -10,7 +10,6 @@ const initialState = {
 };
 
 const storageReducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case "IS_PANDING":
       return {
@@ -42,11 +41,10 @@ export const useStorage = () => {
   const [isCancelled, setIsCancelled] = useState(false);
   const [response, dispatch] = useReducer(storageReducer, initialState);
 
-  console.log(isCancelled);
-
   const dispatchIfNotCancelled = (action) => {
-    dispatch(action);
-    console.log(3);
+    if (!isCancelled) {
+      dispatch(action);
+    }
   };
 
   const uploadImage = async (directory, file) => {
