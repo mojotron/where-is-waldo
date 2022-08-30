@@ -1,0 +1,36 @@
+.CreateTag {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 30rem;
+  border: 1px solid var(--red);
+}
+.CreateTag h2 {
+  font-size: 2rem;
+}
+.CreateTag__icon {
+  height: 5rem;
+  width: 5rem;
+  border: 3px solid var(--red);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+.CreateTag label {
+  padding: 1rem 0;
+}
+.CreateTag__icon-container {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+.CreateTag__icon img {
+  height: inherit;
+  width: inherit;
+}
+.icon-active {
+  opacity: 0.5;
+}

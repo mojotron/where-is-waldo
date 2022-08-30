@@ -2,49 +2,61 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useStorage } from "../../hooks/useStorage";
+import "./CreateTag.css";
 
-const CreateTag = ({ imageId }) => {
+const CreateTag = ({ cellId, handleCreateTag }) => {
   // load current tag images as state for option value
   const { loadImages, response } = useStorage();
+  const [targetName, setTargetName] = useState("");
+  const [targetIcon, setTargetIcon] = useState("none");
 
-  console.log(response);
-
-  const ld = useRef(loadImages).current;
-
-  const [formData, setFormData] = useState({
-    imageId: imageId,
-    name: "",
-    iconUrl: "",
-  });
+  const _loadImage = useRef(loadImages).current;
 
   useEffect(() => {
-    ld("tag");
-  }, [ld]);
+    _loadImage("tag");
+  }, [_loadImage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    handleCreateTag(targetName, targetIcon, cellId);
+    setTargetName("");
+    setTargetIcon("none");
   };
 
   return (
     <form className="CreateTag" onSubmit={handleSubmit}>
-      <h2>Create tag</h2>
-      <label htmlFor="name">Target name</label>
-      <input type="text" name="" id="name" />
+      <h2>Create tag at cell {cellId}</h2>
+      <label htmlFor="target-name">Target name</label>
+      <input
+        required
+        type="text"
+        id="target-name"
+        value={targetName}
+        onChange={(e) => setTargetName(e.target.value)}
+      />
 
-      <label htmlFor="">Target Icon</label>
-      <div>
-        <div value="none">none</div>
+      <label htmlFor="target-icon">Target Icon</label>
+      <div id="target-icon" className="CreateTag__icon-container">
+        <div
+          className={`CreateTag__icon ${
+            targetIcon === "none" ? "icon-active" : ""
+          }`}
+          value="none"
+          onClick={() => setTargetIcon("none")}
+        >
+          none
+        </div>
         {response.imageUrls &&
           response.imageUrls.map((url) => (
             <div
-              style={{
-                backgroundImage: `url("${url}")`,
-                backgroundSize: "contain",
-                height: "5rem",
-                width: "5rem",
-              }}
-            ></div>
+              key={url}
+              className={`CreateTag__icon ${
+                targetIcon === url ? "icon-active" : ""
+              }`}
+              onClick={() => setTargetIcon(url)}
+            >
+              <img src={url} alt="target icon" />
+            </div>
           ))}
       </div>
       <button className="btn" type="submit">

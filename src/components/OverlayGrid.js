@@ -1,6 +1,6 @@
 import "./styles/OverlayGrid.css";
 
-const OverlayGrid = ({ image }) => {
+const OverlayGrid = ({ image, handelChangeCellId }) => {
   return (
     <div className="OverlayGrid" style={{ backgroundImage: `url("${image}")` }}>
       {Array.from({ length: 375 }).map((_, i) => (
@@ -8,7 +8,7 @@ const OverlayGrid = ({ image }) => {
           key={i}
           className="cell"
           data-grid-id={i}
-          onClick={(e) => console.log(e.target.dataset.gridId)}
+          onClick={(e) => handelChangeCellId(e.target.dataset.gridId)}
         ></div>
       ))}
     </div>

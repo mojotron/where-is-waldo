@@ -36,13 +36,3 @@
 .Dashboard__Sidebar__thumbnail:hover {
   opacity: 0.6;
 }
-.CreateTag {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  width: 30rem;
-}
-.CreateTag h2 {
-  font-size: 2rem;
-  padding-bottom: 2rem;
-}

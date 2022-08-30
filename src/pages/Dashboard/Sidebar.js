@@ -12,6 +12,8 @@ const Sidebar = () => {
     tag: false,
     newLevel: false,
   });
+  const [makeTag, setMakeTag] = useState(false);
+  const [cellId, setCellId] = useState(null);
   const [currentLevel, setCurrentLevel] = useState({
     image: "",
     tags: [],
@@ -25,6 +27,16 @@ const Sidebar = () => {
       [option]: !oldValue[option],
     }));
     if (option === "newLevel") await loadImages("images");
+  };
+
+  const handelChangeCellId = (cellId) => {
+    setCellId(cellId);
+    setMakeTag(true);
+  };
+
+  const handleCreateTag = (targetName, targetIcon, cellId) => {
+    console.log(targetName, targetIcon, cellId);
+    setMakeTag(false);
   };
 
   return (
@@ -89,8 +101,14 @@ const Sidebar = () => {
                   />
                 ))}
             </ul>
-            <OverlayGrid image={currentLevel.image} />
-            <CreateTag />
+            <OverlayGrid
+              image={currentLevel.image}
+              handelChangeCellId={handelChangeCellId}
+            />
+            {makeTag && (
+              <CreateTag cellId={cellId} handleCreateTag={handleCreateTag} />
+            )}
+            <button className="btn">Create</button>
           </div>
         )}
       </section>
