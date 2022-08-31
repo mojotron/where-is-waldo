@@ -14,10 +14,13 @@ const Sidebar = () => {
   });
   const [makeTag, setMakeTag] = useState(false);
   const [cellId, setCellId] = useState(null);
+
   const [currentLevel, setCurrentLevel] = useState({
     image: "",
     tags: [],
   });
+
+  console.log(currentLevel);
 
   const handleDisplayOption = async (option) => {
     setShowOptions((oldValue) => ({
@@ -35,8 +38,34 @@ const Sidebar = () => {
   };
 
   const handleCreateTag = (targetName, targetIcon, cellId) => {
-    console.log(targetName, targetIcon, cellId);
+    setCurrentLevel((oldValue) => {
+      console.log(oldValue);
+      const target = oldValue.tags.find((tag) => tag.targetName === targetName);
+      if (target === undefined)
+        return {
+          ...oldValue,
+          tags: [
+            ...oldValue.tags,
+            { targetName, targetIcon, cellIds: [cellId] },
+          ],
+        };
+
+      if (target.cellIds.includes(cellId)) return oldValue;
+
+      return {
+        ...oldValue,
+        tags: oldValue.tags.map((tag) =>
+          tag.targetName === targetName
+            ? { ...tag, cellIds: [...tag.cellIds, cellId] }
+            : tag
+        ),
+      };
+    });
     setMakeTag(false);
+  };
+
+  const handleCreateLevelDocument = async () => {
+    console.log(currentLevel);
   };
 
   return (
@@ -108,7 +137,9 @@ const Sidebar = () => {
             {makeTag && (
               <CreateTag cellId={cellId} handleCreateTag={handleCreateTag} />
             )}
-            <button className="btn">Create</button>
+            <button className="btn" onClick={handleCreateLevelDocument}>
+              Create
+            </button>
           </div>
         )}
       </section>
