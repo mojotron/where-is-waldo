@@ -1,12 +1,12 @@
 import { useLogout } from "../../hooks/useLogout";
-import Sidebar from "./Sidebar";
+import OptionBar from "./OptionBar";
 
 const Dashboard = () => {
   const { isPending, error, logout } = useLogout();
 
   return (
     <div className="Dashboard">
-      <Sidebar />
+      <OptionBar />
 
       {isPending ? (
         <button className="btn btn--logout" type="button" disabled>

@@ -3,26 +3,32 @@ import { useStorage } from "../../hooks/useStorage";
 import UploadImageForm from "./UploadImageForm";
 import OverlayGrid from "../../components/OverlayGrid";
 import CreateTag from "./CreateTag";
+import LevelList from "./LevelList";
+import OptionBtn from "./OptionBtn";
 import "./Dashboard.css";
+import { useFirestore } from "../../hooks/useFirestore";
 
-const Sidebar = () => {
+const OptionBar = () => {
   const { loadImages, response } = useStorage();
+  // state to toggle selected dashboard option
   const [showOptions, setShowOptions] = useState({
     image: false,
     tag: false,
     newLevel: false,
   });
+  // display create tag form when clicking on Overlay grid
   const [makeTag, setMakeTag] = useState(false);
+  // keep track off selected cellId
   const [cellId, setCellId] = useState(null);
-
+  // new level document data
   const [currentLevel, setCurrentLevel] = useState({
     image: "",
     tags: [],
   });
 
-  console.log(currentLevel);
+  const { response: firestoreRes, addDocument } = useFirestore("levels");
 
-  const handleDisplayOption = async (option) => {
+  const toggleOption = async (option) => {
     setShowOptions((oldValue) => ({
       image: false,
       tag: false,
@@ -36,11 +42,12 @@ const Sidebar = () => {
     setCellId(cellId);
     setMakeTag(true);
   };
-
+  // algorithm for updatting setCurrentLevel state
   const handleCreateTag = (targetName, targetIcon, cellId) => {
     setCurrentLevel((oldValue) => {
-      console.log(oldValue);
+      // check if target already exists
       const target = oldValue.tags.find((tag) => tag.targetName === targetName);
+      // if there is no target add new tag to tags
       if (target === undefined)
         return {
           ...oldValue,
@@ -49,9 +56,9 @@ const Sidebar = () => {
             { targetName, targetIcon, cellIds: [cellId] },
           ],
         };
-
+      // tag exists and cellId exists return old value
       if (target.cellIds.includes(cellId)) return oldValue;
-
+      // target exist add new cellId to tags cellsId array
       return {
         ...oldValue,
         tags: oldValue.tags.map((tag) =>
@@ -61,75 +68,58 @@ const Sidebar = () => {
         ),
       };
     });
+    // close create tag form
     setMakeTag(false);
   };
 
   const handleCreateLevelDocument = async () => {
-    console.log(currentLevel);
+    await addDocument(currentLevel);
+    console.log(firestoreRes.success);
   };
 
   return (
     <div className="Dashboard__Sidebar">
       <h1>Dashboard</h1>
+      {/* upload level image option */}
       <section>
-        <button
-          type="button"
-          className="btn btn--sidebar"
-          onClick={() => handleDisplayOption("image")}
-        >
-          Add Level Image
-        </button>
+        <OptionBtn
+          btnText="Add Level Image"
+          handler={() => toggleOption("image")}
+        />
         {showOptions.image && (
           <UploadImageForm
             directory="images"
-            closeOption={() => handleDisplayOption("image")}
+            closeOption={() => toggleOption("image")}
           />
         )}
       </section>
-
+      {/* upload tag icon image option */}
       <section>
-        <button
-          type="button"
-          className="btn btn--sidebar"
-          onClick={() => handleDisplayOption("tag")}
-        >
-          Add Tag Image
-        </button>
+        <OptionBtn
+          btnText="Add Tag Image"
+          handler={() => toggleOption("tag")}
+        />
         {showOptions.tag && (
           <UploadImageForm
             directory="tag"
-            closeOption={() => handleDisplayOption("tag")}
+            closeOption={() => toggleOption("tag")}
           />
         )}
       </section>
-
+      {/* create level document option */}
       <section>
-        <button
-          type="button"
-          className="btn btn--sidebar"
-          onClick={() => handleDisplayOption("newLevel")}
-        >
-          Create New Level
-        </button>
+        <OptionBtn
+          btnText="Create New Level"
+          handler={() => toggleOption("newLevel")}
+        />
         {showOptions.newLevel && (
           <div>
-            <ul className="Dashboard__Sidebar__levels">
-              {response.imageUrls &&
-                response.imageUrls.map((url) => (
-                  <img
-                    key={url}
-                    src={url}
-                    alt="level"
-                    className="Dashboard__Sidebar__thumbnail"
-                    onClick={() =>
-                      setCurrentLevel((oldValue) => ({
-                        ...oldValue,
-                        image: url,
-                      }))
-                    }
-                  />
-                ))}
-            </ul>
+            {response.imageUrls && (
+              <LevelList
+                images={response.imageUrls}
+                setCurrentLevel={setCurrentLevel}
+              />
+            )}
             <OverlayGrid
               image={currentLevel.image}
               handelChangeCellId={handelChangeCellId}
@@ -137,6 +127,7 @@ const Sidebar = () => {
             {makeTag && (
               <CreateTag cellId={cellId} handleCreateTag={handleCreateTag} />
             )}
+
             <button className="btn" onClick={handleCreateLevelDocument}>
               Create
             </button>
@@ -147,4 +138,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default OptionBar;
