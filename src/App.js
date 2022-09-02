@@ -5,6 +5,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/Home/Home";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -13,6 +14,7 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route
             path="/dashboard"
