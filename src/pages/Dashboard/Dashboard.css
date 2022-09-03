@@ -10,7 +10,6 @@
   right: 3rem;
 }
 .Dashboard__Sidebar {
-  display: flex;
   flex-direction: column;
 }
 .Dashboard__Sidebar section {

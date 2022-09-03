@@ -1,10 +1,7 @@
 .OverlayGrid {
-  height: 30rem;
-  width: 60rem;
+  height: 10rem;
+  width: 20rem;
   border: 1px solid var(--red);
-  display: grid;
-  grid-template-columns: repeat(25, 1fr);
-  grid-template-rows: repeat(15, 1fr);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

@@ -13,11 +13,12 @@ const CreateTag = ({ cellId, handleCreateTag }) => {
   const _loadImage = useRef(loadImages).current;
 
   useEffect(() => {
-    _loadImage("tag");
+    _loadImage("tags");
   }, [_loadImage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // TODO handle name or icon required
     handleCreateTag(targetName, targetIcon, cellId);
     setTargetName("");
     setTargetIcon("none");
@@ -28,7 +29,6 @@ const CreateTag = ({ cellId, handleCreateTag }) => {
       <h2>Create tag at cell {cellId}</h2>
       <label htmlFor="target-name">Target name</label>
       <input
-        required
         type="text"
         id="target-name"
         value={targetName}

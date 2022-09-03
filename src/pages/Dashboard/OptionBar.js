@@ -1,32 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStorage } from "../../hooks/useStorage";
+import { useFirestore } from "../../hooks/useFirestore";
 import UploadImageForm from "./UploadImageForm";
 import OverlayGrid from "../../components/OverlayGrid";
 import CreateTag from "./CreateTag";
 import LevelList from "./LevelList";
 import OptionBtn from "./OptionBtn";
 import "./Dashboard.css";
-import { useFirestore } from "../../hooks/useFirestore";
 
 const OptionBar = () => {
   const { loadImages, response } = useStorage();
-  // state to toggle selected dashboard option
   const [showOptions, setShowOptions] = useState({
     image: false,
     tag: false,
     newLevel: false,
   });
-  // display create tag form when clicking on Overlay grid
   const [makeTag, setMakeTag] = useState(false);
-  // keep track off selected cellId
-  const [cellId, setCellId] = useState(null);
-  // new level document data
+  const [firstCoords, setFirstCoords] = useState(null);
+  const [secondCoords, setSecondCoords] = useState(null);
   const [currentLevel, setCurrentLevel] = useState({
     image: "",
     tags: [],
   });
 
   const { response: firestoreRes, addDocument } = useFirestore("levels");
+
+  console.log(firstCoords, secondCoords);
 
   const toggleOption = async (option) => {
     setShowOptions((oldValue) => ({
@@ -38,43 +37,49 @@ const OptionBar = () => {
     if (option === "newLevel") await loadImages("images");
   };
 
-  const handelChangeCellId = (cellId) => {
-    setCellId(cellId);
+  useEffect(() => {
+    if (!firstCoords || !secondCoords) return;
+    if (firstCoords.x > secondCoords.x || firstCoords.y > secondCoords.y) {
+      setSecondCoords(null);
+      return;
+    }
     setMakeTag(true);
+  }, [firstCoords, secondCoords]);
+
+  const handleTagCoords = (coordObject) => {
+    if (secondCoords) return;
+    console.log("clicked");
+    firstCoords ? setSecondCoords(coordObject) : setFirstCoords(coordObject);
   };
   // algorithm for updatting setCurrentLevel state
-  const handleCreateTag = (targetName, targetIcon, cellId) => {
+  const handleCreateTag = (targetName, targetIcon) => {
     setCurrentLevel((oldValue) => {
-      // check if target already exists
-      const target = oldValue.tags.find((tag) => tag.targetName === targetName);
-      // if there is no target add new tag to tags
-      if (target === undefined)
-        return {
-          ...oldValue,
-          tags: [
-            ...oldValue.tags,
-            { targetName, targetIcon, cellIds: [cellId] },
-          ],
-        };
-      // tag exists and cellId exists return old value
-      if (target.cellIds.includes(cellId)) return oldValue;
-      // target exist add new cellId to tags cellsId array
+      const target = oldValue.tags.find(
+        (tag) => tag.targetName === targetName || tag.targetIcon === targetIcon
+      );
+      if (target) return; // exit if target exist
       return {
         ...oldValue,
-        tags: oldValue.tags.map((tag) =>
-          tag.targetName === targetName
-            ? { ...tag, cellIds: [...tag.cellIds, cellId] }
-            : tag
-        ),
+        tags: [
+          ...oldValue.tags,
+          {
+            targetName,
+            targetIcon,
+            coords: {
+              topLeft: { ...firstCoords },
+              bottomRight: { ...secondCoords },
+            },
+          },
+        ],
       };
     });
-    // close create tag form
     setMakeTag(false);
+    setFirstCoords(null);
+    setSecondCoords(null);
   };
 
   const handleCreateLevelDocument = async () => {
     await addDocument(currentLevel);
-    console.log(firestoreRes.success);
   };
 
   return (
@@ -101,7 +106,7 @@ const OptionBar = () => {
         />
         {showOptions.tag && (
           <UploadImageForm
-            directory="tag"
+            directory="tags"
             closeOption={() => toggleOption("tag")}
           />
         )}
@@ -113,7 +118,7 @@ const OptionBar = () => {
           handler={() => toggleOption("newLevel")}
         />
         {showOptions.newLevel && (
-          <div>
+          <div className="Dashboard__Sidebar__new-level">
             {response.imageUrls && (
               <LevelList
                 images={response.imageUrls}
@@ -122,11 +127,9 @@ const OptionBar = () => {
             )}
             <OverlayGrid
               image={currentLevel.image}
-              handelChangeCellId={handelChangeCellId}
+              handleTagCoords={handleTagCoords}
             />
-            {makeTag && (
-              <CreateTag cellId={cellId} handleCreateTag={handleCreateTag} />
-            )}
+            {makeTag && <CreateTag handleCreateTag={handleCreateTag} />}
 
             <button className="btn" onClick={handleCreateLevelDocument}>
               Create
