@@ -1,5 +1,5 @@
 import { useCollection } from "../../hooks/useCollection";
-
+import LevelList from "./LevelList";
 const Home = () => {
   const { isPanding, error, documents } = useCollection("levels");
 
@@ -8,10 +8,7 @@ const Home = () => {
       {isPanding && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
-      {documents &&
-        documents.map((doc) => (
-          <img key={doc.id} src={doc.image} alt="level" />
-        ))}
+      {documents && <LevelList levels={documents} />}
     </div>
   );
 };

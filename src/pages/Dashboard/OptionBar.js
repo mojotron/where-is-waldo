@@ -19,13 +19,12 @@ const OptionBar = () => {
   const [firstCoords, setFirstCoords] = useState(null);
   const [secondCoords, setSecondCoords] = useState(null);
   const [currentLevel, setCurrentLevel] = useState({
+    title: "",
     image: "",
     tags: [],
   });
 
   const { response: firestoreRes, addDocument } = useFirestore("levels");
-
-  console.log(firstCoords, secondCoords);
 
   const toggleOption = async (option) => {
     setShowOptions((oldValue) => ({
@@ -48,7 +47,6 @@ const OptionBar = () => {
 
   const handleTagCoords = (coordObject) => {
     if (secondCoords) return;
-    console.log("clicked");
     firstCoords ? setSecondCoords(coordObject) : setFirstCoords(coordObject);
   };
   // algorithm for updatting setCurrentLevel state
@@ -80,6 +78,7 @@ const OptionBar = () => {
 
   const handleCreateLevelDocument = async () => {
     await addDocument(currentLevel);
+    toggleOption("newLevel");
   };
 
   return (
@@ -119,12 +118,24 @@ const OptionBar = () => {
         />
         {showOptions.newLevel && (
           <div className="Dashboard__Sidebar__new-level">
+            <input
+              placeholder="level name"
+              type="text"
+              value={currentLevel.title}
+              onChange={(e) =>
+                setCurrentLevel((oldValue) => ({
+                  ...oldValue,
+                  title: e.target.value,
+                }))
+              }
+            />
             {response.imageUrls && (
               <LevelList
                 images={response.imageUrls}
                 setCurrentLevel={setCurrentLevel}
               />
             )}
+
             <OverlayGrid
               image={currentLevel.image}
               handleTagCoords={handleTagCoords}
