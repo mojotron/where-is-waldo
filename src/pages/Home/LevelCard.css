@@ -1,0 +1,35 @@
+.LevelCard {
+  border: 3px solid var(--red);
+  border-radius: 0.5rem;
+  height: 30rem;
+  width: 35rem;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.LevelCard__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  height: 8rem;
+}
+.LevelCard__info h3 {
+  font-family: "Antonio";
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+.LeverCard__info__targets {
+  display: flex;
+}
+.LeverCard__info__targets img {
+  margin-right: 0.2rem;
+}
+.LevelCard__image {
+  width: 34.5rem;
+}
+.LevelCard__image img {
+  width: inherit;
+  object-fit: contain;
+}

@@ -6,6 +6,8 @@ import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home/Home";
+// components
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -13,6 +15,7 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminLogin />} />

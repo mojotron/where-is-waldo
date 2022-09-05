@@ -1,0 +1,16 @@
+.Navbar {
+  height: 7rem;
+  background-color: var(--red);
+  color: var(--white);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 5rem;
+}
+
+.Navbar h1 {
+  font-size: 3rem;
+  font-family: "Antonio", "Inter", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
