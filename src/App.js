@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home/Home";
 // components
 import Navbar from "./components/Navbar";
+import Level from "./pages/Level/Level";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -18,6 +19,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/:id" element={<Level />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route
             path="/dashboard"

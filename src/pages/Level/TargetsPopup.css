@@ -1,0 +1,19 @@
+.TargetsPopup {
+  position: absolute;
+  background-color: var(--red);
+  color: var(--white);
+  font-size: 1.3rem;
+  border-radius: 0.7rem;
+  width: 15rem;
+  padding: 1rem 0;
+}
+.TargetsPopup__target {
+  display: flex;
+  padding: 0.3rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.TargetsPopup__target:hover {
+  opacity: 0.8;
+}
