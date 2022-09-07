@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import "./styles/OverlayGrid.css";
 
-const OverlayGrid = ({ image, handleTagCoords }) => {
+const OverlayGrid = ({ image, handleTagCoords, styles }) => {
   const parentElement = useRef();
 
   const getCoordsOnClick = (e) => {
@@ -16,6 +16,7 @@ const OverlayGrid = ({ image, handleTagCoords }) => {
       ref={parentElement}
       className="OverlayGrid"
       style={{
+        ...styles,
         backgroundImage: `url("${image}")`,
         // height: "900px",
         // width: "1400px",

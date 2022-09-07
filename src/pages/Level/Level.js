@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import OverlayGrid from "../../components/OverlayGrid";
 import TargetsPopup from "./TargetsPopup";
@@ -12,6 +12,8 @@ const Level = () => {
   const [targets, setTargets] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+
+  const levelRef = useRef();
 
   useEffect(() => {
     setTargets(
@@ -44,13 +46,14 @@ const Level = () => {
   };
 
   return (
-    <div className="Level">
+    <div className="Level" ref={levelRef}>
       <OverlayGrid image={data.image} handleTagCoords={handleTagCoords} />
       {showPopup && (
         <TargetsPopup
           coords={currentCoord}
           targets={targets}
           handleTargetClick={handleTargetClick}
+          parentRef={levelRef}
         />
       )}
       {gameOver && <WinPopup />}

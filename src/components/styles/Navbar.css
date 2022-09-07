@@ -3,14 +3,29 @@
   background-color: var(--red);
   color: var(--white);
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 0 5rem;
+  text-transform: uppercase;
+  font-family: "Antonio", "Inter", monospace;
+  letter-spacing: 0.2rem;
 }
-
+.Navbar ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .Navbar h1 {
   font-size: 3rem;
-  font-family: "Antonio", "Inter", monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.2rem;
+}
+
+.Navbar a {
+  color: var(--white);
+  font-size: 2rem;
+}
+.Navbar a:hover {
+  display: inline-block;
+  background-color: var(--white);
+  color: var(--red);
+  padding: 2.2rem 0.5rem;
 }

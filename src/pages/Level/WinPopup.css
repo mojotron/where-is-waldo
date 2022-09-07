@@ -1,15 +1,37 @@
 .WinPopup {
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 110%;
   top: 0%;
   left: 0%;
   background-color: rgba(255, 255, 255, 0.4);
 }
+
 .WinPopup__body {
+  border-radius: 0.8rem;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-55%, -50%);
   background-color: var(--white);
+  height: 22rem;
+  width: 32rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.WinPopup__body h1 {
+  font-size: 2.8rem;
+  font-family: "Antonio", "Inter", monospace;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  padding-bottom: 1rem;
+}
+.WinPopup__body h3 {
+  font-size: 1.8rem;
+  font-family: "Antonio", "Inter", monospace;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  padding-bottom: 1rem;
 }

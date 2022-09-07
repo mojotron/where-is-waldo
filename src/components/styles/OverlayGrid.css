@@ -1,7 +1,6 @@
 .OverlayGrid {
   height: inherit;
   width: inherit;
-  border: 1px solid var(--red);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

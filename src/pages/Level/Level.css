@@ -1,6 +1,7 @@
 .Level {
+  --width: 90vw;
+  margin: 5rem auto;
   position: relative;
-  width: 1400px;
-  height: 900px;
-  margin: 0 auto;
+  width: var(--width);
+  height: calc(var(--width) * 0.5625);
 }

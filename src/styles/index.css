@@ -43,7 +43,17 @@ select {
   font-size: 1.5rem;
   line-height: 1.6rem;
 }
-select {
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+a,
+a:visited,
+a:hover,
+a:active {
+  color: var(--red);
 }
 #root {
   height: inherit;
@@ -104,8 +114,8 @@ select {
 }
 .icon {
   display: block;
-  height: 5rem;
-  width: 5rem;
+  height: 3.5rem;
+  width: 3.5rem;
   border: 3px solid var(--red);
   border-radius: 50%;
   display: flex;
