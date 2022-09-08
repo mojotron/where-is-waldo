@@ -7,27 +7,27 @@ import "./Level.css";
 import areCoordsInsideRect from "../../utils/areCoordsInsideRect";
 
 const Level = () => {
-  const data = useLocation().state.data; // pass date, leater get data from server
+  const data = useLocation().state.data; // pass date
   const [currentCoord, setCurrentCoord] = useState(null);
-  const [targets, setTargets] = useState(null);
+  const [targets, setTargets] = useState(
+    data.tags.map((tar) => ({
+      ...tar,
+    }))
+  );
   const [showPopup, setShowPopup] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-
+  const [gameStart, setGameStart] = useState(null);
   const levelRef = useRef();
-
+  // create timestamp
   useEffect(() => {
-    setTargets(
-      data.tags.map((tar) => ({
-        ...tar,
-      }))
-    );
-  }, [data.tags]);
+    setGameStart(Date.now());
+  }, []);
 
   const handleTagCoords = (coordsObject) => {
     setCurrentCoord(coordsObject);
     setShowPopup(true);
   };
-
+  // check if user have found all targets
   useEffect(() => {
     if (!targets) return;
     if (targets.length > 0) return;
@@ -56,7 +56,7 @@ const Level = () => {
           parentRef={levelRef}
         />
       )}
-      {gameOver && <WinPopup />}
+      {gameOver && <WinPopup gameStart={gameStart} />}
     </div>
   );
 };

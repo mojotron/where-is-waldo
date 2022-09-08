@@ -9,6 +9,7 @@ import Home from "./pages/Home/Home";
 // components
 import Navbar from "./components/Navbar";
 import Level from "./pages/Level/Level";
+import Footer from "./components/Footer";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -30,6 +31,7 @@ const App = () => {
             }
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

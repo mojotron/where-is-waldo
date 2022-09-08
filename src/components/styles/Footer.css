@@ -1,0 +1,12 @@
+.Footer {
+  color: var(--red);
+  padding: 1rem 0 5rem;
+}
+.Footer__info__link {
+  opacity: 0.5;
+}
+.Footer__info__link:hover,
+.Footer__info__link:active {
+  color: #74787c;
+  opacity: 1;
+}

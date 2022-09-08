@@ -1,5 +1,6 @@
 .Navbar {
   height: 7rem;
+  width: 100%;
   background-color: var(--red);
   color: var(--white);
   display: flex;
