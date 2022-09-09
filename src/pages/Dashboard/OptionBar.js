@@ -139,7 +139,7 @@ const OptionBar = () => {
             <OverlayGrid
               image={currentLevel.image}
               handleTagCoords={handleTagCoords}
-              styles={{ height: "900px", width: "1400px" }}
+              styles={{ height: "562.5px", width: "1000px" }}
             />
             {makeTag && <CreateTag handleCreateTag={handleCreateTag} />}
 

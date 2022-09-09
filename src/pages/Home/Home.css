@@ -4,7 +4,6 @@
   justify-content: center;
 }
 .Home__levels-list {
-  max-width: 90rem;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;

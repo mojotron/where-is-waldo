@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# A Photo Tagging App - Where is Waldo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-where-s-waldo-a-photo-tagging-app) Curriculum.
 
-## Available Scripts
+Goal of project is to make game where user can choose a photograph with tons of stuff going on and they are meant to locate several familiar characters.
 
-In the project directory, you can run:
+[Play Where is Waldo](https://mojotron.github.io/where-is-waldo/). Try out and end result of the project.
 
-### `npm start`
+## Part 1 Admin Dashboard (not for users eyes)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+From the start of the project I wanted to make a admin page(dashboard) to make creating a new game level easy, in couple of clicks. Here I have hit first roadblock with react router protected route and authentication context. Had to learn those concepts first. Great resource for understanding this is [Shaun | TheNetNinja](https://www.youtube.com/TheNetNinja) tutorial [Build Web Apps with React & Firebase](https://www.udemy.com/course/build-web-apps-with-react-firebase/).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Dashboard have a simple functions, to upload level image, to upload character icon image and to create a level. Creating level have four steps. Simulating simple html form. Add level name, choose level image. Display that image and put OverlayGrid component over image. Select coordinates on the image to create target(tag). Final step is creating firebase document with all information about level.
 
-### `npm test`
+Target rectangle and OverlayGrid component, first version was to make grid of little squares. With this approach making tags was more complicated then it should be. When target is spanning over multiple squares, there was need for array to store all squares on which target is displayed. This made level document complex. Second problem is performance issues with creating all square element. After this I moved from squares to simple math. Creating tag is simple two click on the grid, making rectangle with top left and bottom right coordinates. With this approach there is no need for complex level data. Checking if user have found tag is simple if checks, is click inside target rectangle.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Getting coords from clicking on the OverlayGrid is in percentages, for easier communication between grid used in creating level and grid when playing level.
 
-### `npm run build`
+## Part 2 User Interface and game app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+UI is simple, on initial page load app sends request to get all levels data. After getting data display levels as card, showing level name, image thumbnail amd all targets user must find to complete level.
+Selecting level game starts, when user finds all targets winning message pop up with game time.
+To select target after finding it, click on target and popup window will show with all targets left to find.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Targets popup are calculating position on grid using parent ref to get width/height and self width/height. Goal of this calculation to keep popup not spilling of level grid.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Part 3 testing app
 
-### `npm run eject`
+Initial goal was to go with TDD approach but i lost my way when need for mocking firebase come along.
+Test will be added and project refactored as my testing learning continues.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## what have I learned?
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React context and useContext hook for providing firebase authentication
+- Better understatement of useRef, useEffect, and useReducer hooks
