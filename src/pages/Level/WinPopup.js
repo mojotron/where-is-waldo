@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./WinPopup.css";
-import formatTime from "../../utils/formateTime";
+import formatTime from "../../utils/formatTime";
 
 const WinPopup = ({ gameStart }) => {
   const navigate = useNavigate();

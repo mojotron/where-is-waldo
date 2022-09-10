@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // context
 import { useAuthContext } from "./hooks/useAuthContext";
 // pages
@@ -30,6 +30,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />
       </BrowserRouter>

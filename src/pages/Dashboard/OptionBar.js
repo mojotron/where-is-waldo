@@ -24,7 +24,7 @@ const OptionBar = () => {
     tags: [],
   });
 
-  const { response: firestoreRes, addDocument } = useFirestore("levels");
+  const { addDocument } = useFirestore("levels");
 
   const toggleOption = async (option) => {
     setShowOptions((oldValue) => ({
