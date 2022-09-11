@@ -19,8 +19,6 @@ const OverlayGrid = ({ image, handleTagCoords, styles }) => {
       style={{
         ...styles,
         backgroundImage: `url("${image}")`,
-        // height: "900px",
-        // width: "1400px",
       }}
       onClick={(e) => getCoordsOnClick(e)}
     ></div>
