@@ -1,0 +1,39 @@
+{
+  "id": "12345",
+  "tags": [
+    {
+      "coords": {
+        "bottomRight": {
+          "x": 41.099999999999994,
+          "y": 60.47999945746528
+        },
+        "topLeft": {
+          "y": 57.27999945746528,
+          "x": 39.900000000000006
+        }
+      },
+      "targetIcon": "waldo-icon.jpg",
+      "targetName": "Waldo"
+    },
+    {
+      "targetIcon": "wenda-icon.jpg",
+      "targetName": "Wenda",
+      "coords": {
+        "bottomRight": {
+          "x": 30.099999999999998,
+          "y": 48.49185112847223
+        },
+        "topLeft": {
+          "y": 45.46962890625,
+          "x": 28.9
+        }
+      }
+    }
+  ],
+  "createdAt": {
+    "seconds": 1662643284,
+    "nanoseconds": 586000000
+  },
+  "title": "space",
+  "image": "waldo-space.jpg"
+}

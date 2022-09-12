@@ -28,8 +28,10 @@
 }
 .LevelCard__image {
   width: 34.5rem;
+  height: 19rem;
 }
 .LevelCard__image img {
   width: inherit;
-  object-fit: contain;
+  height: inherit;
+  object-fit: cover;
 }

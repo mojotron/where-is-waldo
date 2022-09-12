@@ -1,13 +1,13 @@
 import { useCollection } from "../../hooks/useCollection";
 import LevelCard from "./LevelCard";
-import "./Home.css";
+import "./styles/Home.css";
 
 const Home = () => {
-  const { isPanding, error, documents } = useCollection("levels");
+  const { isPending, error, documents } = useCollection("levels");
 
   return (
-    <div className="Home">
-      {isPanding && <p>Loading...</p>}
+    <div className="Home" data-testid="home-page-container">
+      {isPending && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
       <ul className="Home__levels-list">

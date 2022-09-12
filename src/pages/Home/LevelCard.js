@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import "./LevelCard.css";
+import "./styles/LevelCard.css";
 
 const LevelCard = ({ data }) => {
   return (
-    <Link to={`/${data.id}`} state={{ data }}>
-      <li className="LevelCard">
+    <li className="LevelCard">
+      <Link to={`/${data.id}`} state={{ data }}>
         <div className="LevelCard__info">
           <h3>{data.title}</h3>
           <div className="LeverCard__info__targets">
@@ -21,8 +21,8 @@ const LevelCard = ({ data }) => {
         <div className="LevelCard__image">
           <img src={data.image} alt="level thumbnail" />
         </div>
-      </li>
-    </Link>
+      </Link>
+    </li>
   );
 };
 

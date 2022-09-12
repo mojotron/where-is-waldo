@@ -8,12 +8,12 @@ const OverlayGrid = ({ image, handleTagCoords, styles }) => {
     const rect = parentElement.current.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
-    console.log(x, y);
     handleTagCoords({ x, y });
   };
 
   return (
     <div
+      data-testid="overlay-grid"
       ref={parentElement}
       className="OverlayGrid"
       style={{
