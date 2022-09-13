@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import "./TargetsPopup.css";
+import "./styles/TargetsPopup.css";
 
 const TargetsPopup = ({ coords, targets, handleTargetClick, parentRef }) => {
   const popupRef = useRef();
@@ -29,6 +29,7 @@ const TargetsPopup = ({ coords, targets, handleTargetClick, parentRef }) => {
 
   return (
     <div
+      data-testid="targets-popup"
       ref={popupRef}
       className="TargetsPopup"
       style={{
@@ -39,6 +40,7 @@ const TargetsPopup = ({ coords, targets, handleTargetClick, parentRef }) => {
     >
       {targets.map((target) => (
         <div
+          data-testid="target-list-item"
           className="TargetsPopup__target"
           key={target.targetName}
           onClick={() => handleTargetClick(target)}

@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import OverlayGrid from "../../components/OverlayGrid";
 import TargetsPopup from "./TargetsPopup";
 import WinPopup from "./WinPopup";
-import "./Level.css";
+import "./styles/Level.css";
 import areCoordsInsideRect from "../../utils/areCoordsInsideRect";
 
 const Level = () => {
