@@ -4,7 +4,7 @@ import "./styles/LevelCard.css";
 const LevelCard = ({ data }) => {
   return (
     <li className="LevelCard">
-      <Link to={`/${data.id}`} state={{ data }}>
+      <Link to={`/level/${data.id}`} state={{ data }}>
         <div className="LevelCard__info">
           <h3>{data.title}</h3>
           <div className="LeverCard__info__targets">
